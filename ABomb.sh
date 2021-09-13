@@ -33,15 +33,12 @@ banner() {
     fi
     if ! [ -x "$(command -v toilet)" ]; then
         echo -e "\e[4;34m This Bomber Was Created By \e[1;32mADIL \e[0m"
-        echo -e "\e[4;34m CREDIT TO \e[1:32mSPEEDX \e[0m"
     else
         echo -e "\e[1;34mCreated By \e[1;34m"
         toilet -f mono12 -F gay ADIL
     fi
     echo -e "\e[3;12m For Any Queries Join Me!!!\e[0m"
     echo -e "\e[1;32m           instagram: https://instagram.com/m._adill \e[0m"
-    echo -e "\e[1;32m           I AM INDEPTED TO SPEEDX \e[0m"
-    echo -e "\e[1;32m           TELEGRAM : t.me/TBombchat \e[0m"
     echo " "
     echo " "
 }
