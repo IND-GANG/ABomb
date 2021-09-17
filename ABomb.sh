@@ -35,7 +35,7 @@ banner() {
         echo -e "\e[4;34m This Bomber Was Created By \e[1;32mADIL \e[0m"
     else
         echo -e "\e[1;34mCreated By \e[1;34m"
-        toilet -f mono12 -F gay ADIL
+        toilet -f mono12 -F gay:border ADIL
     fi
     echo -e "\e[3;12m For Any Queries Join Me!!!\e[0m"
     echo -e "\e[1;32m           instagram: https://instagram.com/m._adill \e[0m"
@@ -119,6 +119,9 @@ do
     elif [ $ch -eq 3 ];then
    (figlet LOADING....)
            $PYTHON adil.py --mail
+    elif [ $ch -eq 4 ];then
+   (figlet LOADING....)
+           $PYTHON adil.py --update
         exit
     elif [ $ch -eq 99 ];then
     banner
