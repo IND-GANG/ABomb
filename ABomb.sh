@@ -105,6 +105,7 @@ do
     echo -e "\e[1;32m [1] SMS  Bomber => send sms upto 500\e[0m"
     echo -e "\e[1;32m [2] CALL Bomber => send calls upto 15\e[0m"
     echo -e "\e[1;32m [3] MAIL Bomber => send gmail upto 200\e[0m"
+    echo -e "\e[1;32m [4] UPDATE => get new version "
     echo -e "\e[1;32m [99] EXIT \e[0m"
     read ch
     clear
