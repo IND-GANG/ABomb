@@ -176,25 +176,6 @@ def update():
     else:
         do_zip_update()
 
-
-def check_for_updates():
-    if DEBUG_MODE:
-        mesgdcrt.WarningMessage(
-            "DEBUG MODE Enabled! Auto-Update check is disabled.")
-        return
-    mesgdcrt.SectionMessage("Checking for updates")
-    fver = requests.get(
-        "https://raw.githubusercontent.com/IND-GANG/ABomb/master/.version"
-    ).text.strip()
-    if fver != __VERSION__:
-        mesgdcrt.WarningMessage("An update is available")
-        mesgdcrt.GeneralMessage("Starting update...")
-        update()
-    else:
-        mesgdcrt.SuccessMessage("ABomb is up-to-date")
-        mesgdcrt.GeneralMessage("Starting ABomb")
-
-
 def notifyen():
     try:
         if DEBUG_MODE:
@@ -322,7 +303,6 @@ def selectnode(mode="sms"):
         clr()
         bann_text()
         check_intr()
-        check_for_updates()
         notifyen()
 
         max_limit = {"sms": 500, "call": 15, "mail": 200}

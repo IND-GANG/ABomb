@@ -19,11 +19,14 @@ detect_distro() {
         fi
     fi
     figlet LOADING....
+    apt-get install sox -y
 # Loading spinner
     source <(echo "c3Bpbm5lcj0oICd8JyAnLycgJy0nICdcJyApOwoKY291bnQoKXsKICBzcGluICYKICBwaWQ9JCEKICBmb3IgaSBpbiBgc2VxIDEgMTBgCiAgZG8KICAgIHNsZWVwIDE7CiAgZG9uZQoKICBraWxsICRwaWQgIAp9CgpzcGluKCl7CiAgd2hpbGUgWyAxIF0KICBkbyAKICAgIGZvciBpIGluICR7c3Bpbm5lcltAXX07IAogICAgZG8gCiAgICAgIGVjaG8gLW5lICJcciRpIjsKICAgICAgc2xlZXAgMC4yOwogICAgZG9uZTsKICBkb25lCn0KCmNvdW50" | base64 -d)
-    clear
+    play .granted.mp3
 }
 banner() {
+    clear
+    play .beep.mp3
     clear
     echo -e "\e[1;31m"
     if ! [ -x "$(command -v figlet)" ]; then
@@ -129,7 +132,8 @@ do
     figlet EXIT....
         exit
     else
-        (echo -e "\e[4;32m404 ERROR\e[0m" $exit)
+        (echo -e "\e[4;32m404 ERROR\e[0m" $play .DENIED.mp3 )
+        exit
         pause
     fi
 done
