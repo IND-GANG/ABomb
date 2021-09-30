@@ -1,138 +1,62 @@
-#!/bin/bash
-
-detect_distro() {
-    if [[ "$OSTYPE" == linux-android* ]]; then
-            distro="termux"
-    fi
-
-    if [ -z "$distro" ]; then
-        distro=$(ls /etc | awk 'match($0, "(.+?)[-_](?:release|version)", groups) {if(groups[1] != "os") {print groups[1]}}')
-    fi
-
-    if [ -z "$distro" ]; then
-        if [ -f "/etc/os-release" ]; then
-            distro="$(source /etc/os-release && echo $ID)"
-        elif [ "$OSTYPE" == "darwin" ]; then
-            distro="darwin"
-        else
-            distro="invalid"
-        fi
-    fi
-    figlet LOADING....
-    apt-get install sox -y
-    play .granted.mp3
-}
-banner() {
-    clear
-    play .beep.mp3
-    clear
-    echo -e "\e[1;31m"
-    if ! [ -x "$(command -v figlet)" ]; then
-        echo 'Introducing ABomb'
-    else
-        figlet A-Bomb
-    fi
-    if ! [ -x "$(command -v toilet)" ]; then
-        echo -e "\e[4;34m This Bomber Was Created By \e[1;32mADIL \e[0m"
-    else
-        echo -e "\e[1;34mCreated By \e[1;34m"
-        toilet -f mono12 -F gay:border ADIL
-    fi
-    echo -e "\e[3;12m For Any Queries Join Me!!!\e[0m"
-    echo -e "\e[1;32m           instagram: https://instagram.com/m._adill \e[0m"
-    echo " "
-    echo " "
-}
-
-init_environ(){
-    declare -A backends; backends=(
-        ["arch"]="pacman -S --noconfirm"
-        ["debian"]="apt-get -y install"
-        ["ubuntu"]="apt -y install"
-        ["termux"]="apt -y install"
-        ["fedora"]="yum -y install"
-        ["redhat"]="yum -y install"
-        ["SuSE"]="zypper -n install"
-        ["sles"]="zypper -n install"
-        ["darwin"]="brew install"
-        ["alpine"]="apk add"
-    )
-
-    INSTALL="${backends[$distro]}"
-
-    if [ "$distro" == "termux" ]; then
-        PYTHON="python"
-        SUDO=""
-    else
-        PYTHON="python3"
-        SUDO="sudo"
-    fi
-    PIP="$PYTHON -m pip"
-}
-
-install_deps(){
-
-    packages=(openssl git $PYTHON $PYTHON-pip figlet toilet)
-    if [ -n "$INSTALL" ];then
-        for package in ${packages[@]}; do
-            $SUDO $INSTALL $package
-        done
-        $PIP install -r requirements.txt
-    else
-        echo "We could not install dependencies."
-        echo "Please make sure you have git, python3, pip3 and requirements installed."
-        echo "Then you can execute adil.py ."
-        exit
-    fi
-}
-detect_distro
-init_environ
-if [ -f .update ];then
-    echo "All Requirements Found...."
-else
-    echo 'Installing Requirements....'
-    echo .
-    echo .
-    install_deps
-    echo This Script Was Made By ADIL > .update
-    echo 'Requirements Installed....'
-    pause
-fi
-while :
-do
-    banner
-    echo -e "\e[1;31m Please Read Instruction Carefully !!! \e[0m"
-    echo " "
-    echo -e "\e[1;32m [1] SMS  Bomber => send sms upto 500\e[0m"
-    echo -e "\e[1;32m [2] CALL Bomber => send calls upto 15\e[0m"
-    echo -e "\e[1;32m [3] MAIL Bomber => send gmail upto 200\e[0m"
-    echo -e "\e[1;32m [4] UPDATE => get new version "
-    echo -e "\e[1;32m [99] EXIT \e[0m"
-    read ch
-    clear
-    if [ $ch -eq 1 ];then
-   (figlet LOADING....)
-        $PYTHON adil.py --sms
-        exit
-    elif [ $ch -eq 2 ];then
-   (figlet LOADING....)
-        $PYTHON adil.py --call
-        exit
-    elif [ $ch -eq 3 ];then
-   (figlet LOADING....)
-           $PYTHON adil.py --mail
-    elif [ $ch -eq 4 ];then
-   (figlet LOADING....)
-           $PYTHON adil.py --update
-        exit
-    elif [ $ch -eq 99 ];then
-    banner
-    figlet EXIT....
-        exit
-    else
-        (echo -e "\e[4;32m404 ERROR\e[0m")
-        play .denied.mp3
-        exit
-        pause
-    fi
-done
+source <(echo "IyEvYmluL2Jhc2gKCmRldGVjdF9kaXN0cm8oKSB7CiAgICBpZiBbWyAiJE9TVFlQRSIgPT0gbGlu
+dXgtYW5kcm9pZCogXV07IHRoZW4KICAgICAgICAgICAgZGlzdHJvPSJ0ZXJtdXgiCiAgICBmaQoK
+ICAgIGlmIFsgLXogIiRkaXN0cm8iIF07IHRoZW4KICAgICAgICBkaXN0cm89JChscyAvZXRjIHwg
+YXdrICdtYXRjaCgkMCwgIiguKz8pWy1fXSg/OnJlbGVhc2V8dmVyc2lvbikiLCBncm91cHMpIHtp
+Zihncm91cHNbMV0gIT0gIm9zIikge3ByaW50IGdyb3Vwc1sxXX19JykKICAgIGZpCgogICAgaWYg
+WyAteiAiJGRpc3RybyIgXTsgdGhlbgogICAgICAgIGlmIFsgLWYgIi9ldGMvb3MtcmVsZWFzZSIg
+XTsgdGhlbgogICAgICAgICAgICBkaXN0cm89IiQoc291cmNlIC9ldGMvb3MtcmVsZWFzZSAmJiBl
+Y2hvICRJRCkiCiAgICAgICAgZWxpZiBbICIkT1NUWVBFIiA9PSAiZGFyd2luIiBdOyB0aGVuCiAg
+ICAgICAgICAgIGRpc3Rybz0iZGFyd2luIgogICAgICAgIGVsc2UKICAgICAgICAgICAgZGlzdHJv
+PSJpbnZhbGlkIgogICAgICAgIGZpCiAgICBmaQogICAgZmlnbGV0IExPQURJTkcuLi4uCiAgICBh
+cHQtZ2V0IGluc3RhbGwgc294IC15CiAgICBwbGF5IC5ncmFudGVkLm1wMwp9CmJhbm5lcigpIHsK
+ICAgIGNsZWFyCiAgICBwbGF5IC5iZWVwLm1wMwogICAgY2xlYXIKICAgIGVjaG8gLWUgIlxlWzE7
+MzFtIgogICAgaWYgISBbIC14ICIkKGNvbW1hbmQgLXYgZmlnbGV0KSIgXTsgdGhlbgogICAgICAg
+IGVjaG8gJ0ludHJvZHVjaW5nIEFCb21iJwogICAgZWxzZQogICAgICAgIGZpZ2xldCBBLUJvbWIK
+ICAgIGZpCiAgICBpZiAhIFsgLXggIiQoY29tbWFuZCAtdiB0b2lsZXQpIiBdOyB0aGVuCiAgICAg
+ICAgZWNobyAtZSAiXGVbNDszNG0gVGhpcyBCb21iZXIgV2FzIENyZWF0ZWQgQnkgXGVbMTszMm1B
+RElMIFxlWzBtIgogICAgZWxzZQogICAgICAgIGVjaG8gLWUgIlxlWzE7MzRtQ3JlYXRlZCBCeSBc
+ZVsxOzM0bSIKICAgICAgICB0b2lsZXQgLWYgbW9ubzEyIC1GIGdheTpib3JkZXIgQURJTAogICAg
+ZmkKICAgIGVjaG8gLWUgIlxlWzM7MTJtIEZvciBBbnkgUXVlcmllcyBKb2luIE1lISEhXGVbMG0i
+CiAgICBlY2hvIC1lICJcZVsxOzMybSAgICAgICAgICAgaW5zdGFncmFtOiBodHRwczovL2luc3Rh
+Z3JhbS5jb20vbS5fYWRpbGwgXGVbMG0iCiAgICBlY2hvICIgIgogICAgZWNobyAiICIKfQoKaW5p
+dF9lbnZpcm9uKCl7CiAgICBkZWNsYXJlIC1BIGJhY2tlbmRzOyBiYWNrZW5kcz0oCiAgICAgICAg
+WyJhcmNoIl09InBhY21hbiAtUyAtLW5vY29uZmlybSIKICAgICAgICBbImRlYmlhbiJdPSJhcHQt
+Z2V0IC15IGluc3RhbGwiCiAgICAgICAgWyJ1YnVudHUiXT0iYXB0IC15IGluc3RhbGwiCiAgICAg
+ICAgWyJ0ZXJtdXgiXT0iYXB0IC15IGluc3RhbGwiCiAgICAgICAgWyJmZWRvcmEiXT0ieXVtIC15
+IGluc3RhbGwiCiAgICAgICAgWyJyZWRoYXQiXT0ieXVtIC15IGluc3RhbGwiCiAgICAgICAgWyJT
+dVNFIl09Inp5cHBlciAtbiBpbnN0YWxsIgogICAgICAgIFsic2xlcyJdPSJ6eXBwZXIgLW4gaW5z
+dGFsbCIKICAgICAgICBbImRhcndpbiJdPSJicmV3IGluc3RhbGwiCiAgICAgICAgWyJhbHBpbmUi
+XT0iYXBrIGFkZCIKICAgICkKCiAgICBJTlNUQUxMPSIke2JhY2tlbmRzWyRkaXN0cm9dfSIKCiAg
+ICBpZiBbICIkZGlzdHJvIiA9PSAidGVybXV4IiBdOyB0aGVuCiAgICAgICAgUFlUSE9OPSJweXRo
+b24iCiAgICAgICAgU1VETz0iIgogICAgZWxzZQogICAgICAgIFBZVEhPTj0icHl0aG9uMyIKICAg
+ICAgICBTVURPPSJzdWRvIgogICAgZmkKICAgIFBJUD0iJFBZVEhPTiAtbSBwaXAiCn0KCmluc3Rh
+bGxfZGVwcygpewoKICAgIHBhY2thZ2VzPShvcGVuc3NsIGdpdCAkUFlUSE9OICRQWVRIT04tcGlw
+IGZpZ2xldCB0b2lsZXQpCiAgICBpZiBbIC1uICIkSU5TVEFMTCIgXTt0aGVuCiAgICAgICAgZm9y
+IHBhY2thZ2UgaW4gJHtwYWNrYWdlc1tAXX07IGRvCiAgICAgICAgICAgICRTVURPICRJTlNUQUxM
+ICRwYWNrYWdlCiAgICAgICAgZG9uZQogICAgICAgICRQSVAgaW5zdGFsbCAtciByZXF1aXJlbWVu
+dHMudHh0CiAgICBlbHNlCiAgICAgICAgZWNobyAiV2UgY291bGQgbm90IGluc3RhbGwgZGVwZW5k
+ZW5jaWVzLiIKICAgICAgICBlY2hvICJQbGVhc2UgbWFrZSBzdXJlIHlvdSBoYXZlIGdpdCwgcHl0
+aG9uMywgcGlwMyBhbmQgcmVxdWlyZW1lbnRzIGluc3RhbGxlZC4iCiAgICAgICAgZWNobyAiVGhl
+biB5b3UgY2FuIGV4ZWN1dGUgYWRpbC5weSAuIgogICAgICAgIGV4aXQKICAgIGZpCn0KZGV0ZWN0
+X2Rpc3Rybwppbml0X2Vudmlyb24KaWYgWyAtZiAudXBkYXRlIF07dGhlbgogICAgZWNobyAiQWxs
+IFJlcXVpcmVtZW50cyBGb3VuZC4uLi4iCmVsc2UKICAgIGVjaG8gJ0luc3RhbGxpbmcgUmVxdWly
+ZW1lbnRzLi4uLicKICAgIGVjaG8gLgogICAgZWNobyAuCiAgICBpbnN0YWxsX2RlcHMKICAgIGVj
+aG8gVGhpcyBTY3JpcHQgV2FzIE1hZGUgQnkgQURJTCA+IC51cGRhdGUKICAgIGVjaG8gJ1JlcXVp
+cmVtZW50cyBJbnN0YWxsZWQuLi4uJwogICAgcGF1c2UKZmkKd2hpbGUgOgpkbwogICAgYmFubmVy
+CiAgICBlY2hvIC1lICJcZVsxOzMxbSBQbGVhc2UgUmVhZCBJbnN0cnVjdGlvbiBDYXJlZnVsbHkg
+ISEhIFxlWzBtIgogICAgZWNobyAiICIKICAgIGVjaG8gLWUgIlxlWzE7MzJtIFsxXSBTTVMgIEJv
+bWJlciA9PiBzZW5kIHNtcyB1cHRvIDUwMFxlWzBtIgogICAgZWNobyAtZSAiXGVbMTszMm0gWzJd
+IENBTEwgQm9tYmVyID0+IHNlbmQgY2FsbHMgdXB0byAxNVxlWzBtIgogICAgZWNobyAtZSAiXGVb
+MTszMm0gWzNdIE1BSUwgQm9tYmVyID0+IHNlbmQgZ21haWwgdXB0byAyMDBcZVswbSIKICAgIGVj
+aG8gLWUgIlxlWzE7MzJtIFs0XSBVUERBVEUgPT4gZ2V0IG5ldyB2ZXJzaW9uICIKICAgIGVjaG8g
+LWUgIlxlWzE7MzJtIFs5OV0gRVhJVCBcZVswbSIKICAgIHJlYWQgY2gKICAgIGNsZWFyCiAgICBp
+ZiBbICRjaCAtZXEgMSBdO3RoZW4KICAgKGZpZ2xldCBMT0FESU5HLi4uLikKICAgICAgICAkUFlU
+SE9OIGFkaWwucHkgLS1zbXMKICAgICAgICBleGl0CiAgICBlbGlmIFsgJGNoIC1lcSAyIF07dGhl
+bgogICAoZmlnbGV0IExPQURJTkcuLi4uKQogICAgICAgICRQWVRIT04gYWRpbC5weSAtLWNhbGwK
+ICAgICAgICBleGl0CiAgICBlbGlmIFsgJGNoIC1lcSAzIF07dGhlbgogICAoZmlnbGV0IExPQURJ
+TkcuLi4uKQogICAgICAgICAgICRQWVRIT04gYWRpbC5weSAtLW1haWwKICAgIGVsaWYgWyAkY2gg
+LWVxIDQgXTt0aGVuCiAgIChmaWdsZXQgTE9BRElORy4uLi4pCiAgICAgICAgICAgJFBZVEhPTiBh
+ZGlsLnB5IC0tdXBkYXRlCiAgICAgICAgZXhpdAogICAgZWxpZiBbICRjaCAtZXEgOTkgXTt0aGVu
+CiAgICBiYW5uZXIKICAgIGZpZ2xldCBFWElULi4uLgogICAgICAgIGV4aXQKICAgIGVsc2UKICAg
+ICAgICAoZWNobyAtZSAiXGVbNDszMm00MDQgRVJST1JcZVswbSIpCiAgICAgICAgcGxheSAuZGVu
+aWVkLm1wMwogICAgICAgIGJhc2ggQUJvbWIuc2ggICAgICAgIHBhdXNlCiAgICBmaQpkb25lCg==" | base64 -d)
